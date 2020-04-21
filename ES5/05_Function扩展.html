@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Title</title>
+    </head>
+    <body>
+        <script>
+            var obj = { username: 'aaa' }
+
+            function foo(data) {
+              console.log(this, data)
+            }
+
+            // 传入参数的方式
+            // foo.call(obj, 33) // 直接从第二个参数开始，以此传入
+            // foo.apply(obj, [33]) // 第二参数必须是数组，传入的数据放在数组里
+
+            // 特点：绑定完this不会立即调用当前的函数，而是将函数返回
+            // 传参的方式同 call 一样
+            var bar = foo.bind(obj, 55)
+            // bar()
+
+            setTimeout(function()  {
+              console.log(this)
+            }.bind(obj), 1000)
+        </script>
+    </body>
+</html>
