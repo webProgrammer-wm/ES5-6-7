@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Title</title>
+    </head>
+    <body>
+        <script>
+            'use strict'
+            // 1.
+            // 必须使用 var 声明变量
+            // a = 1
+            // console.log(a) // a is not defined
+
+            // 2.
+            // 禁止自定义函数的this指向window
+            function Person(name, age) {
+                this.name = name
+                this.age = age
+            }
+            // 使用new 后，this指向实例而不是window
+            new Person('allen', 20)
+
+            // 3.
+            var str = 'abc'
+            // 如果未使用严格模式，eval没有自己的作用域，在里面声明变量会污染全局
+            eval('var str = 123;alert(str)')
+            alert(str)
+
+            // 4.不能在对象里定义重名属性
+            var obj = {
+              username: '111',
+              username: '222'
+            }
+        </script>
+    </body>
+</html>
