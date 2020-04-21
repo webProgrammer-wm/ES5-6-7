@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Title</title>
+    </head>
+    <body>
+        <script>
+            /*
+                对象本身的两个方法
+                get PropertyName() {} 用来得到当前属性值的回调函数
+                set PropertyName() {} 用来监听当前属性值变化的回调函数
+             */
+            var obj = {
+              firstName: 'allen',
+              lastName: 'barry',
+              get fullName() {
+                return this.firstName + ' ' + this.lastName
+              },
+              set fullName(newName) {
+                var names = newName.split(' ')
+                this.firstName = names[0]
+                this.lastName = names[1]
+              }
+            }
+
+            console.log(obj)
+            obj.fullName = 'jl yj'
+            console.log(obj.fullName)
+        </script>
+    </body>
+</html>
