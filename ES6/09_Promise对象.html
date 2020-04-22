@@ -24,17 +24,61 @@
       })
       console.log(222)
 
-      promise
-        .then(
-          // 成功的回调
-          (data) => {
-            console.log(data, '成功了')
-          },
-          // 失败的回调
-          (err) => {
-            console.log(err, '失败了')
+      // promise
+      //   .then(
+      //     // 成功的回调
+      //     (data) => {
+      //       console.log(data, '成功了')
+      //     },
+      //     // 失败的回调
+      //     (err) => {
+      //       console.log(err, '失败了')
+      //     }
+      // )
+
+      // 定义获取新闻的函数
+      function getNews(url) {
+        let promise = new Promise((resolve, reject) => {
+          // 状态初始化
+          // 执行异步任务
+          // 创建xhr实例对象
+          let xhr = new XMLHttpRequest()
+
+          // 绑定监听 readystate
+          xhr.onreadystatechange = function () {
+            // 请求成功
+            if (xhr.readyState === 4) {
+              if (xhr.status === 200) {
+                console.log(xhr.responseText)
+                // 修改状态
+                resolve() // 修改 promise 为成功的状态
+              } else {
+                reject('暂时没有新闻内容')
+              }
+            }
           }
-      )
+
+          // open 设置请求的方式以及 url
+          xhr.open('GET', url)
+
+          // 发送
+          xhr.send()
+        })
+
+        return promise
+
+
+      }
+
+      getNews('')
+        .then(
+          () => {
+
+          },
+          () => {
+
+          }
+        )
     </script>
   </body>
 </html>
