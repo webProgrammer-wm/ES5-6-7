@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Title</title>
+  </head>
+  <body>
+    <script>
+      // 创建 promise 对象
+      let promise = new Promise((resolve, reject) => {
+        // 初始化 promise 状态：pending：初始化
+        console.log(111)
+        setTimeout(() => {
+          console.log(333)
+          // 根据异步任务的返回结果去修改 promise 的状态
+          // 异步任务执行成功
+          // resolve('哈哈') // 修改 promise 的状态为成功状态：fullfilled：成功的状态
+
+          // 异步任务执行失败
+          reject('555') // 修改 promise 的状态为：rejected ： 失败的状态
+        }, 2000)
+      })
+      console.log(222)
+
+      promise
+        .then(
+          // 成功的回调
+          (data) => {
+            console.log(data, '成功了')
+          },
+          // 失败的回调
+          (err) => {
+            console.log(err, '失败了')
+          }
+      )
+    </script>
+  </body>
+</html>
