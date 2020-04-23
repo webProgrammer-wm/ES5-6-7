@@ -52,6 +52,45 @@
       console.log(iteratorObj.next())
       console.log(iteratorObj.next())
 
+      // 将 iterator 接口部署到指定的数据类型上，可用使用 for of 去循环遍历
+      for (let i of arr) {
+        console.log(i)
+      }
+
+      let str = 'sadasd'
+      for (let i of str) {
+        console.log(i)
+      }
+
+      function foo() {
+        for (let i of arguments) {
+          console.log(i)
+        }
+      }
+
+      foo(1.213,2 ,214, 4, 'a')
+
+
+      // 等同于在指定的数据结构上部署了iterator接口
+      // 当使用 for of 去遍历某一个数据结构的时候，首先去找Symbol.iterator，找到了就去遍历，没有找到的话会抛出错误：xxx is not iterable
+      let targetData = {
+        [Symbol.iterator]: function () {
+          let nextIndex = 0 // 记录指针的位置
+          return {
+            next: function () {
+              return nextIndex < arr.length ? { value: arr[nextIndex++], done: false} : { value: undefined, done: true }
+            }
+          }
+        }
+      }
+
+      // 使用三点运算符，解构赋值，默认去调用 iterator 接口
+      let arr2 = [1, 6]
+      let arr3 = [2,3,4,6]
+      arr2 = [1, ...arr3, 6]
+      console.log(arr2)
+      let [a, b] = arr2
+      console.log(a, b)
     </script>
   </body>
 </html>
