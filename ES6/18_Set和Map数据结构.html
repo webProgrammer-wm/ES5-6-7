@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Title</title>
+    </head>
+    <body>
+        <script>
+            /*
+                1.Set容器：无序，不可重复的多个value的集合体
+                    - Set()
+                    - Set(array)
+                    - add(value)
+                    - delete(value)
+                    - has(value)
+                    - clear()
+                    - size
+
+                2.Map容器：无序的key，不重复的多个key-value的集合体
+                    - Map()
+                    - Map(array)
+                    - set(key, value) 添加
+                    - get(key)
+                    - delete(key)
+                    - has(key)
+                    - clear()
+                    - size
+             */
+
+            let set = new Set([1,2,4,5,7,1])
+            set.add(111)
+            console.log(set, set.size)
+
+            let map = new Map([['username', 'allen'], ['age', 20]])
+            map.set('haha', 211)
+            console.log(map)
+
+        </script>
+    </body>
+</html>
