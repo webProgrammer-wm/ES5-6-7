@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Title</title>
+    </head>
+    <body>
+        <script>
+            /*
+                循环遍历
+                for(let item in list) {}
+                1.遍历数组
+                2.遍历set
+                3.遍历map
+                4.遍历字符串
+                5.遍历为数组
+
+             */
+
+            // 数组去重
+            let arr = [1, 2, 34, 5,1, 2,6]
+            let arr1 = arr
+            arr = []
+            let set = new Set(arr1)
+            for (let i of set) {
+                arr.push(i)
+            }
+
+            console.log(arr)
+        </script>
+    </body>
+</html>
