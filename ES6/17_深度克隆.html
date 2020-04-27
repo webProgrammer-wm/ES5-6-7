@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Title</title>
+    </head>
+    <body>
+        <script>
+            // 不会影响原数据
+            // let str = 'abc'
+            // let str2 = str
+            // console.log(str2)
+            // str2 = ''
+            // console.log(str)
+            //
+            // let obj = { username: 'allen', age: 39 }
+            // let obj1 = obj
+            // console.log(obj1)
+            // obj1.username = 'alex'
+            // console.log(obj.username) // alex
+
+            // 拷贝数组/对象，没有生成新的数据，而是复制了一份引用
+            // let arr = [1, 4, { username: 'allen', age: 20 }]
+            // let arr2 = arr
+            // arr2[0] = 'abcd'
+            // console.log(arr)
+
+            /*
+                拷贝数据
+                    基本数据类型：
+                        拷贝后会生成一份新的数据，修改拷贝后的数据不会影响原数据
+
+                    对象/数组
+                        拷贝后不会生成新的数据，而是拷贝引用。修改拷贝以后的数据会影响原来的数据
+
+                拷贝数据的方法
+                    1.直接赋值给一个变量  （浅拷贝）
+                    2.Object.assign()   （浅拷贝）
+                    3.Array.prototype.concat()  （浅拷贝）
+                    4.Array.prototype.slice()   （浅拷贝）
+                    5.JSON.parse(JSON.stringify())   （深拷贝/深度克隆），拷贝的数据里不能有函数，它无法处理
+
+                会影响原数据的叫浅拷贝，反之为深拷贝
+
+                浅拷贝（对象/数组）：
+                    特点：拷贝的是引用，修改拷贝后的数据不会影响原数据，使得原数据不安全
+                深拷贝（深度克隆）：
+                    特点：拷贝的时候生成新数据，修改拷贝后的数据不会影响原数据
+             */
+
+            // let obj = { username: 'allen' }
+            // let obj2 = Object.assign(obj)
+            // obj.username = 'alex'
+            // console.log(obj2)
+            //
+            // let arr = [1, 3, { username: 'allen' }]
+            // let testArr = [2, 4]
+            // let arr2 = arr.concat()
+            // arr2[0] = 555
+            // console.log(arr)
+
+
+            // 深度拷贝
+            // let arr = [1, 3, { username: 'allen' }]
+            // let arr2 = JSON.parse(JSON.stringify(arr))
+            // arr2[2].username = 'alex'
+            // console.log(arr, arr2)
+
+
+            /*
+                思考：
+                    如何实现深度拷贝
+                    拷贝的数据里有对象/数组
+                    拷贝的数据里不能有对象/数组，即使有对象/数组，可以继续遍历对象/数组，直到拿到的是基本数据类型，然后再复制进去，就是深度拷贝
+
+                知识点储备:
+                    1.如何判断数据类型 arr -> Array    null -> Null
+                        typeof返回的数据类型：String，Number，Boolean，undefined，Object，Function
+                    2.Object.prototype.toString.call(obj)
+             */
+            // let result = 'abcd'
+            // result = [1, 2, 3]
+            // 判断数据类型
+            // console.log(Object.prototype.toString.call(result).slice(8,-1))
+
+            // for in 循环 对象（属性名） 数组（下标）
+            // let obj = { username: 'allen', age: 30 }
+            // for (let i in obj) {
+            //     console.log(i)
+            // }
+            // for (let i in result) {
+            //     console.log(i)
+            // }
+
+            // 定义检测数据类型的功能函数
+            function checkedType(target) {
+                return Object.prototype.toString.call(target).slice(8,-1)
+            }
+
+            // console.log(checkType(result))
+
+            // 实现深度克隆 -> 大多针对的是对象/数组
+            function clone(target) {
+                // 判断拷贝的数据类型
+                // 初始化变量result，成为最终克隆的数据
+                let result, targetType = checkedType(target)
+                if (targetType === 'Object') {
+                    result = {}
+                } else if (targetType === 'Array') {
+                    result = []
+                } else {
+                    return target
+                }
+
+                // 遍历目标数据
+                for (let i in target) {
+                    // 获取遍历数据解构的每一项值
+                    let value = target[i]
+                    // 判断目标结构里的每一项值是否存在对象/数组
+                    // 对象或数组里嵌套了对象/数组
+                    if (checkedType(value) === 'Object' || checkedType(value) === 'Array') {
+                        // 继续遍历获取到的value值
+                        result[i] = clone(value)
+                    } else { // 获取到的value值是基本的数据类型或者函数
+                        result[i] = value
+                    }
+                }
+                return result
+            }
+
+            let arr = [1, 2, {username: 'allen', age: 20} ]
+            let arr3 = clone(arr)
+            arr3[2].username = 'alex'
+            console.log(arr3, arr)
+
+            let obj = {username: 'allen', age: 30}
+            let obj1 = clone(obj)
+            obj1.username = 'aaaaa'
+            console.log(obj, obj1)
+        </script>
+    </body>
+</html>
